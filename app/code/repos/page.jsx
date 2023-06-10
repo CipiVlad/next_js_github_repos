@@ -3,15 +3,21 @@ import Link from "next/link"
 import { FaStar, FaCodeBranch, FaEye } from 'react-icons/fa'
 async function fetchRepos() {
     const response = await fetch('https://api.github.com/users/CipiVlad/repos')
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 1500))
+    //wait 1.5 second --> to se loading spinner
     const repos = await response.json()
     return repos
 }
+
 
 const ReposPage = async () => {
     const repos = await fetchRepos()
     console.log(repos);
     return (
         <div className="repos-container">
+            <h1>github Repos</h1>
+
             <ul className="repo-list">
                 {repos.map((repo) => (
                     <li key={repo.id}>
@@ -33,7 +39,6 @@ const ReposPage = async () => {
                     </li>
                 ))}
             </ul>
-            <h1>github Repo Name</h1>
             <h2></h2>
         </div>
     )
